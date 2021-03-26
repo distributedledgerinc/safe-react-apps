@@ -1,0 +1,24 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: treasury-safe-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: treasury-safe-app
+  template:
+    metadata:
+      labels:
+        app: treasury-safe-app
+    spec:
+      containers:
+        - name: mxnc-treasury
+          image: us.gcr.io/block-sec/treasury-safe-app:0.1
+          imagePullPolicy: Always
+          env:
+            - name: REACT_APP_INFURA_TOKEN
+              value: f046c2bf6d71458dab65361f31d41c6d
+          ports:
+            - containerPort: 80
+      restartPolicy: Always
